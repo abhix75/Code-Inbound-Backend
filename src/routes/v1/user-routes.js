@@ -17,4 +17,11 @@ const router = express.Router();
                           AuthRequestMiddleWares.checkAuth, 
                           AuthRequestMiddleWares.isAdmin, 
                           UserController.addRoleToUser);   
+
+          router.get('/',UserController.getUsers);
+
+          router.get('/:id',UserController.getUser);
+
+          router.delete('/:id',UserController.destroyUser);
+
 module.exports =router; 

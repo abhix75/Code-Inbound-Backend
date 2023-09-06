@@ -65,11 +65,66 @@ async function signup(req,res)
     }
 }
 
+async function getUsers(req,res)
+{
+    try {
+        const airplane = await UserService.getUsers();
+        SuccessResponse.data=airplane;
+        return res 
+                 .status(StatusCodes.OK)
+                 .json(SuccessResponse)
+                 
+    } catch (error) {
+        ErrorResponse.error=error;
+        return res 
+                 .status(error.statusCodes)
+                 .json(ErrorResponse)
+    }
+}
+
+async function getUser(req,res)
+{
+    try {
+        const airplane = await UserService.getUser(req.params.id);
+        SuccessResponse.data=airplane;
+        return res 
+                 .status(StatusCodes.OK)
+                 .json(SuccessResponse)
+                 
+    } catch (error) {
+        ErrorResponse.error=error;
+        return res 
+                 .status(error.statusCodes)
+                 .json(ErrorResponse)
+    }
+}
+
+async function destroyUser(req,res)
+{
+    try {
+        const response = await UserService.destroyUser(req.params.id);
+        SuccessResponse.data=response;
+        return res 
+                 .status(StatusCodes.OK)
+                 .json(SuccessResponse)
+                 
+    } catch (error) {
+        ErrorResponse.error=error;
+        return res 
+                 .status(error.statusCodes)
+                 .json(ErrorResponse)
+    }
+}
+
+
 
 
 
  module.exports={
     signup,
     signin,
-    addRoleToUser
+    addRoleToUser,
+    getUsers,
+    getUser,
+    destroyUser
  }

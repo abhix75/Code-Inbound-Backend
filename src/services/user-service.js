@@ -115,10 +115,54 @@ async function isAdmin(id) {
         throw new AppError('Something went wrong', StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function getUsers()
+{
+    try {
+        const user = await userRepository.getAll();
+        return user;
+    } catch (error) {
+       throw new AppError("Not Able to get All the Airplane objects",StatusCodes.INTERNAL_SERVER_ERROR); 
+    }
+}
+
+async function getUser(id)
+{
+    try {
+        const user = await userRepository.get(id);
+        return user;
+    } catch (error) {
+        if(error.statusCodes==StatusCodes.NOT_FOUND)
+        {
+            throw new AppError("THE AEROPLANE YTHAT YOU HAVE REQUESTED IS NOT PRESENT",error.statusCodes)
+        }
+       throw new AppError("Not Able to get  the Airplane objects",StatusCodes.INTERNAL_SERVER_ERROR); 
+    }
+}
+async function destroyUser(id)
+{
+    try {
+        const response = await userRepository.destroy(id);
+        return response;
+    } catch (error) {
+        console.log("destroy",error)
+        if(error.statusCodes==StatusCodes.NOT_FOUND)
+        {
+            throw new AppError("THE user THAT YOU HAVE REQUESTED To DElete IS NOT PRESENT",error.statusCodes)
+        }
+       throw new AppError("Not Able to get  the delete objects",StatusCodes.INTERNAL_SERVER_ERROR); 
+    }
+}
+
+
+
 module.exports={
     create,
     signin,
     isAuthenticated,
     addRoletoUser,
-    isAdmin
+    isAdmin,
+    getUsers,
+    getUser,
+    destroyUser
 }
