@@ -12,5 +12,9 @@ const router = express.Router();
                           AuthRequestMiddleWares.ValidateAuthRequest,
                           UserController.signin)
 
-
+           
+          router.post('/role',
+                          AuthRequestMiddleWares.checkAuth, 
+                          AuthRequestMiddleWares.isAdmin, 
+                          UserController.addRoleToUser);   
 module.exports =router; 
