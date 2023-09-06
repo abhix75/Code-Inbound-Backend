@@ -68,8 +68,8 @@ async function signup(req,res)
 async function getUsers(req,res)
 {
     try {
-        const airplane = await UserService.getUsers();
-        SuccessResponse.data=airplane;
+        const users = await UserService.getUsers();
+        SuccessResponse.data=users;
         return res 
                  .status(StatusCodes.OK)
                  .json(SuccessResponse)
@@ -85,8 +85,8 @@ async function getUsers(req,res)
 async function getUser(req,res)
 {
     try {
-        const airplane = await UserService.getUser(req.params.id);
-        SuccessResponse.data=airplane;
+        const user = await UserService.getUser(req.params.id);
+        SuccessResponse.data=user;
         return res 
                  .status(StatusCodes.OK)
                  .json(SuccessResponse)
@@ -116,6 +116,24 @@ async function destroyUser(req,res)
     }
 }
 
+async function updateUser(req,res)
+{
+    try {
+        console.log("service data -- ",req.params.id,req.body);
+        const response = await UserService.getUpdate(req.params.id,req.body);
+  
+        SuccessResponse.data=response;
+        return res 
+                 .status(StatusCodes.OK)
+                 .json(SuccessResponse)
+                 
+    } catch (error) {
+        ErrorResponse.error=error;
+        return res 
+                 .status(error.statusCodes)
+                 .json(ErrorResponse)
+    }
+}
 
 
 
@@ -126,5 +144,6 @@ async function destroyUser(req,res)
     addRoleToUser,
     getUsers,
     getUser,
-    destroyUser
+    destroyUser,
+    updateUser
  }

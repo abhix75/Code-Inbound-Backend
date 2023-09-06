@@ -40,11 +40,12 @@ async getAll(data)
         const response= await this.model.findAll();
         return response;
 }
-async update(data)
+async update(id,data)
 {
+    console.log(id,data)
         const response= await this.model.update(data,{
             where:{
-                id:id
+                id:id,
             }
         });
         return response;

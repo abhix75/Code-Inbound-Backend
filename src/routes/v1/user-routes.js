@@ -24,4 +24,6 @@ const router = express.Router();
 
           router.delete('/:id',UserController.destroyUser);
 
+          router.put('/:id',UserController.updateUser)
+
 module.exports =router; 

@@ -153,6 +153,24 @@ async function destroyUser(id)
        throw new AppError("Not Able to get  the delete objects",StatusCodes.INTERNAL_SERVER_ERROR); 
     }
 }
+async function getUpdate(id, data) {
+    try {
+        console.log("service data -- ",id, data);
+      const user = await userRepository.update(id, data);
+       console.log("user Service ",user)
+      if (!user) {
+        throw new AppError("User not found", StatusCodes.NOT_FOUND);
+      }
+  
+      return user;
+    } catch (error) {
+      console.log("service error",error);
+      throw new AppError(
+        "Error retrieving user",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 
 
 
@@ -164,5 +182,6 @@ module.exports={
     isAdmin,
     getUsers,
     getUser,
-    destroyUser
+    destroyUser,
+    getUpdate
 }
